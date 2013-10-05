@@ -6,7 +6,11 @@ Whether you're a command line aficionado, prefer GUIs, or just want to start mak
 
 Starting with Version 9.2.2.0, Postgres.app is using semantic versioning, tied to the release of PostgreSQL provided in the release, with the final number corresponding to the individual releases of PostgresApp for each distribution.
 
-If you are upgrading Postgres.app to a new minor release (e.g. 9.1 to 9.2), you will need to manually migrate your data from the previous version (which has been moved to `~/Library/Application\ Support/Postgres/var[PGVERSION]`). Instructions to do this with the `pg_upgrade` utility can be found [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
+If you are upgrading Postgres.app from 9.1 to 9.2, you will need to manually migrate your data from the previous version (which has been moved to `~/Library/Application\ Support/Postgres/var[PGVERSION]`). Instructions to do this with the `pg_upgrade` utility can be found [in the PostgreSQL manual](http://www.postgresql.org/docs/current/static/pgupgrade.html).
+
+If you are upgrading Postgres.app to 9.3 your data now resides in the App Sandbox: `/Library/Containers/com.heroku.postgres/Data/Library/Application\ Support/Postgres/var`.
+
+Postgres.app 9.3 may also initialize itself with a slightly different local string that includes `UTF-8` which will result in the upgrade failing. You can address this by initializing the database yourself: `initdb --locale=en_US -D ~/Library/Containers/com.heroku.postgres/Data/Library/Application\ Support/Postgres/var`. (Substitute en_US for the `old` value that you recieve in the erorr message when the upgrade fails. E.g. `lc_collate cluster values do not match:  old "en_US", new "en_US.UTF-8"`.
 
 # Command-Line Tools
 
